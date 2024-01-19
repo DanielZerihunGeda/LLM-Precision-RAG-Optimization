@@ -1,2 +1,5 @@
 PyPDF2==3.0.1
 pytest==7.4.4
+sentence-transformers==2.2.2
+langchain==0.1.1
+chromadb==0.4.22

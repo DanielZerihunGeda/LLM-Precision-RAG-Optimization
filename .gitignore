@@ -81,6 +81,7 @@ target/
 # IPython
 profile_default/
 ipython_config.py
+5_Levels_Of_Text_Splitting (1).ipynb
 
 # pyenv
 #   For a library or package, you might want to ignore these files since the code is
