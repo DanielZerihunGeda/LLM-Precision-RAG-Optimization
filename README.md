@@ -30,15 +30,10 @@ Prompt engineering involves designing queries or statements to guide LLMs to pro
 
 PromptlyTech addresses these challenges through automated solutions, encompassing Automatic Prompt Generation, Test Case Generation, and Prompt Testing and Ranking. We streamline the prompt engineering process, saving time, enhancing productivity, and democratizing advanced AI capabilities.
 
-
-## Installation
-
-
-
 ## Getting Started
-1. **Clone the repository:** `git clone https://github.com/PromptlyTech/your-repo.git`
+1. **Clone the repository:** `git clone https://github.com/DanielZerihunGeda/LLM-Precision-RAG-Optimization`
 
-2. **Navigate to the project directory:** `cd your-repo`
+2. **Navigate to the project directory:** `cd LLM-Precision-RAG-Optimization`
 
 3. **Install Python dependencies:** 
 
@@ -48,12 +43,30 @@ $ pip install requirements.txt
 4. **Install other dependencies:** 
 
 ```bash
-$ cd front-end
+$ cd user_interface
 $ npm install
 ```
 
 
 ## Usage
+
+ **Installing vscode is highly-recommeded to get Automatic configuration** 
+
+ ```bash
+ $ sudo apt update
+ $ sudo apt install code
+ ```
+ **Accessing the user interface** 
+
+1.  ```bash
+ $ cd back_end
+ $ Run -- python api_endpoint.py
+ ```
+2.  ```bash
+ $ cd user_interface
+ $ npm start
+ ```
+![Alt Text 1](capture/user_interface.jpg)
 
 ## Contributing
 
@@ -65,7 +78,7 @@ This project is licensed under the [MIT License](LICENSE.md) - see the [LICENSE.
 
 ## Contact
 
-For inquiries and support, please contact us at support@promptlytech.com.
+For inquiries and support, please contact us at @here
 
 ---
 

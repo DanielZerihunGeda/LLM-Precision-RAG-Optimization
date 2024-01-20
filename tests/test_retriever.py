@@ -1,6 +1,6 @@
 import unittest
 import tempfile
-from ..back_end.chunk_semantically import semantic_retriever  # Replace 'your_module_name' with the actual module name
+from ..back_end.chunk_semantically import semantic_retriever 
 
 class TestSemanticRetriever(unittest.TestCase):
     def setUp(self):
