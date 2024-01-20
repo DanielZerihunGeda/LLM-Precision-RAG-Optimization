@@ -1,4 +1,5 @@
-import openai
+import sys
+sys.path.append('back_end')
 from dotenv import load_dotenv
 import os
 from langchain.chains import LLMChain
@@ -9,12 +10,46 @@ from langchain_openai import OpenAI
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
-openai.api_key = api_key
+from operator import itemgetter
 
-template = """Question: {question}
+from langchain_community.vectorstores import FAISS
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.runnables import RunnableLambda, RunnablePassthrough
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from back_end.chunk_semantically import semantic_retriever
 
-Answer: Let's think step by step."""
+chunks = semantic_retriever('file.txt')
+vectorstore = FAISS.from_texts(
+    chunks, embedding=OpenAIEmbeddings()
+)
+retriever = vectorstore.as_retriever(search_kwargs={"k" : 5}) # Specifying the value of "k" 
+template = """<human>: rate the relevance of retrieved context to the user {question} on scale of 1-10':
+Example:
 
-prompt = PromptTemplate(template=template, input_variables=["question"])
-llm = OpenAI()
-print(llm)
+<human>: "who is jessica james?"
+
+<bot>:"the score of context is 7.5"
+
+
+### CONTEXT
+{context}
+
+### QUESTION
+Question: {question}
+
+\n
+
+<bot>:
+"""
+
+prompt = ChatPromptTemplate.from_template(template)
+
+model = ChatOpenAI()
+chain = (
+    {"context": retriever, "question": RunnablePassthrough()}
+    | prompt
+    | model
+    | StrOutputParser()
+)
+chain.invoke("what was the first program I wrote?")
