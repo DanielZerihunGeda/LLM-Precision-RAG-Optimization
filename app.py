@@ -24,4 +24,32 @@ vectorstore = FAISS.from_texts(
     chunks, embedding=OpenAIEmbeddings()
 )
 retriever = vectorstore.as_retriever(search_kwargs={"k" : 5}) # Specifying the value of "k" 
-relevant_docs = retriever.get_relevant_documents("What are the challenges in evaluating Retrieval Augmented Generation pipelines?")
+template = """<human>: rate the relevance of retrieved context to the user {question} on scale of 1-10':
+Example:
+
+<human>: "who is jessica james?"
+
+<bot>:"the score of context is 7.5"
+
+
+### CONTEXT
+{context}
+
+### QUESTION
+Question: {question}
+
+\n
+
+<bot>:
+"""
+
+prompt = ChatPromptTemplate.from_template(template)
+
+model = ChatOpenAI()
+chain = (
+    {"context": retriever, "question": RunnablePassthrough()}
+    | prompt
+    | model
+    | StrOutputParser()
+)
+chain.invoke("what was the first program I wrote?")
