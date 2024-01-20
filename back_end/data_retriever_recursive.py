@@ -3,7 +3,10 @@ from langchain_openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+import combine_sentences
+import re
 def data_retriever(file, query):
+    
     # Load the document, split it into chunks, embed each chunk, and load it into the vector store.
     raw_documents = TextLoader(file).load()
 
